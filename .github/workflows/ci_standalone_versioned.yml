@@ -1,18 +1,22 @@
 ---
 name: Test collection with AWX
-
 on:
-  workflow_call:
-    inputs:
-      awx_version:
-        description: The version to pull of awx
-        required: true
-        type: string
-      gh_ref:
-        description: The ref in the repository to pull
-        required: false
-        default: devel
-        type: string
+  push:
+    branches:
+      - main
+
+# on:
+#   workflow_call:
+#     inputs:
+#       awx_version:
+#         description: The version to pull of awx
+#         required: true
+#         type: string
+#       gh_ref:
+#         description: The ref in the repository to pull
+#         required: false
+#         default: devel
+#         type: string
 env:
   # Run docker-compose up in the background
   COMPOSE_UP_OPTS: -d
