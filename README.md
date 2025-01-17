@@ -7,9 +7,12 @@
 
 This Ansible collection allows for easy interaction with an AWX or Ansible Controller server via Ansible roles using the AWX/Controller collection modules.
 
+## Deprecation warning!!!!!!!
+This collection only supports AWX and AAP 2.4 and earlier. For AAP 2.5+ take a look at our [new collection](https://github.com/redhat-cop/infra.aap_configuration) that allows you to manage your whole AAP configuration in one place.
+
 ## Getting Help
 
-We are on the Ansible Forums and Matrix, if you want to discuss something, ask for help, or participate in the community, please use the #infra-config-as-code tag on the fourm, or post to the chat in Matrix.
+We are on the Ansible Forums and Matrix, if you want to discuss something, ask for help, or participate in the community, please use the #infra-config-as-code tag on the form, or post to the chat in Matrix.
 
 [Ansible Forums](https://forum.ansible.com/tag/infra-config-as-code)
 
