@@ -784,6 +784,14 @@ releases:
     - filetree_create_workflow_job_templates.yaml
     - filetree_node_schedule_survey.yml
     release_date: '2025-03-26'
+  3.0.1:
+    changes:
+      bugfixes:
+      - Fix issue with release existing on Automation hub
+      release_summary: Version bump to fix release process upload.
+    fragments:
+    - version_bump.yml
+    release_date: '2025-03-26'
   3.0.2:
     changes:
       bugfixes:
