@@ -1,3 +1,0 @@
-release_summary: Version bump to fix release process upload.
-bugfixes:
-  - Fix issue with release existing on Automation hub

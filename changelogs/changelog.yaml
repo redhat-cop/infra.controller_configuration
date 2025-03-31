@@ -784,3 +784,14 @@ releases:
     - filetree_create_workflow_job_templates.yaml
     - filetree_node_schedule_survey.yml
     release_date: '2025-03-26'
+  3.0.2:
+    changes:
+      bugfixes:
+      - Add input_inventories to the output of Constructed Inventories.
+      - Add instance_groups to the output of Constructed Inventories.
+      - Fix issue with release existing on Automation hub
+      release_summary: Version bump to fix release process upload.
+    fragments:
+    - constructed_inventories.yml
+    - version_bump.yml
+    release_date: '2025-03-31'
