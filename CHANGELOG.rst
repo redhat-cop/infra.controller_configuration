@@ -7,17 +7,19 @@ infra.controller\_configuration Release Notes
 v3.0.2
 ======
 
-Release Summary
----------------
-
-Version bump to fix release process upload.
-
 Bugfixes
 --------
 
 - Add input_inventories to the output of Constructed Inventories.
 - Add instance_groups to the output of Constructed Inventories.
-- Fix issue with release existing on Automation hub
+
+v3.0.1
+======
+
+Release Summary
+---------------
+
+Version bump to fix release process upload.
 
 v3.0.0
 ======
