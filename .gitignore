@@ -6,3 +6,4 @@ test
 tests/output
 .vscode
 ansible.cfg
+.ansible/

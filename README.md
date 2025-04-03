@@ -24,13 +24,14 @@ The awx.awx or ansible.controller collections MUST be installed in order for thi
 
 ```yaml
 ---
-- name: Playbook to configure ansible controller post installation
-  hosts: localhost
-  connection: local
-  vars:
-    controller_validate_certs: true
-  collections:
-    - awx.awx
+---
+collections:
+  # - name: awx.awx
+  # or
+  - name: ansible.controller
+    version: '>=4.5.0,<4.6.0'
+  - name: infra.controller_configuration
+...
 ```
 
 ## Links to Ansible Automation Platform Collections
