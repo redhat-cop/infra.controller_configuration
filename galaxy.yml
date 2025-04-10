@@ -20,8 +20,6 @@ build_ignore:
     - galaxy.yml.j2
     - release.yml
     - .github
-    - .ansiblelint.yml
-    - .yamllint.yml
     - '*.tar.gz'
 license:
     - GPL-3.0-or-later
