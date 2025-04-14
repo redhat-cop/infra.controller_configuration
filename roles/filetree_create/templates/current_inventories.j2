@@ -88,8 +88,8 @@ controller_inventories:
 -%}
 {%   if _instance_groups | length > 0 %}
     instance_groups:
-{%    for _input_inventory in _instance_groups %}
-      - {{ _input_inventory.name }}
+{%    for _instance_group in _instance_groups %}
+      - {{ _instance_group.name }}
 {%    endfor %}
 {%   endif %}
 {% endif %}
