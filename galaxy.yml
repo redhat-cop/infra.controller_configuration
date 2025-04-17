@@ -1,7 +1,7 @@
 ---
 namespace: infra
 name: controller_configuration
-version: 3.0.2-devel
+version: 3.1.0-devel
 description: A collection of roles to manage Ansible Controller
 readme: README.md
 authors:
@@ -20,6 +20,8 @@ build_ignore:
     - galaxy.yml.j2
     - release.yml
     - .github
+    - .ansiblelint.yml
+    - .yamllint.yml
     - '*.tar.gz'
 license:
     - GPL-3.0-or-later

@@ -4,14 +4,33 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.1.0
+======
+
+Minor Changes
+-------------
+
+- Constructed inventories now produce an inventory source which can be used to control items such as limit and source_vars for the constructed inventory
+
+Bugfixes
+--------
+
+- filetree_create - Corrected th4e following vars; controller_hostname, controller_oauthtoken, and controller_validate_certs
+
 v3.0.2
 ======
+
+Release Summary
+---------------
+
+Version bump to fix release process upload.
 
 Bugfixes
 --------
 
 - Add input_inventories to the output of Constructed Inventories.
 - Add instance_groups to the output of Constructed Inventories.
+- Fix issue with release existing on Automation hub
 
 v3.0.1
 ======
@@ -20,6 +39,11 @@ Release Summary
 ---------------
 
 Version bump to fix release process upload.
+
+Bugfixes
+--------
+
+- Fix issue with release existing on Automation hub
 
 v3.0.0
 ======
