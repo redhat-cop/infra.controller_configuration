@@ -1,5 +1,5 @@
 ---
-- name: "Flatten the filetree_create output into unique files per each object type"
+- name: Flatten the filetree_create output into unique files per each object type
   hosts: localhost
   connection: local
   gather_facts: false
@@ -28,13 +28,13 @@
   roles:
     - infra.controller_configuration.filetree_read
   post_tasks:
-    - name: "Create the output flatten dir"
+    - name: Create the output flatten dir
       ansible.builtin.file:
         path: "{{ filetree_create_output_dir }}_flatten"
         state: directory
         mode: "0755"
 
-    - name: "Write all the objects to the corresponding file"
+    - name: Write all the objects to the corresponding file
       ansible.builtin.copy:
         dest: "{{ filetree_create_output_dir }}_flatten/{{ object_type.name }}.yaml"
         mode: "0644"
@@ -88,7 +88,3 @@
         - name: controller_roles
           value: "{{ controller_roles }}"
 ...
-# Sample usage:
-#
-# ansible-playbook infra.controller_configuration.flatten_filetree_create_output.yaml -e '{filetree_create_output_dir: /tmp/filetree_output}'
-#

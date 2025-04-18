@@ -16,9 +16,8 @@ controller_settings: []
 controller_teams: []
 controller_user_accounts: []
 controller_workflows: []
-
 # Output directory path
-output_path: "/tmp/filetree_output"
+output_path: /tmp/filetree_output
 
 # Maximum number of objects to return from the list. If a list view returns more an max_objects an exception will be raised
 query_controller_api_max_objects: 10000
@@ -30,5 +29,5 @@ controller_configuration_filetree_create_secure_logging: "{{ controller_configur
 
 input_tag:
   - all
-organization: 'ORGANIZATIONLESS'
+organization: ORGANIZATIONLESS
 ...

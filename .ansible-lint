@@ -21,9 +21,52 @@ parseable: true
 # verbosity: 1
 
 # Mock modules or roles in order to pass ansible-playbook --syntax-check
-# mock_modules:
-#   - ansible.controller.ad_hoc_command
-#   - ansible.controller.ad_hoc_command_cancel
+mock_modules:
+  - ad_hoc_command_cancel
+  - ad_hoc_command
+  - ad_hoc_command_wait
+  - bulk_host_create
+  - bulk_host_delete
+  - bulk_job_launch
+  - controller_meta
+  - credential_input_source
+  - credential
+  - credential_type
+  - execution_environment
+  - export
+  - group
+  - host
+  - import
+  - instance_group
+  - instance
+  - inventory
+  - inventory_source
+  - inventory_source_update
+  - job_cancel
+  - job_launch
+  - job_list
+  - job_template
+  - job_wait
+  - label
+  - license
+  - notification_template
+  - organization
+  - project
+  - project_update
+  - role_definition
+  - role
+  - role_team_assignment
+  - role_user_assignment
+  - schedule
+  - settings
+  - subscriptions
+  - team
+  - user
+  - workflow_approval
+  - workflow_job_template_node
+  - workflow_job_template
+  - workflow_launch
+  - workflow_node_wait
 
 # mock_roles:
 #   - mocked_role
@@ -54,9 +97,9 @@ use_default_rules: true
 skip_list:
   - fqcn[action]
   - fqcn[keyword]
-  - meta-runtime  # This collection with the appropriate awx.awx or ansible.controller still works with older ansible.
+  - meta-runtime # This collection with the appropriate awx.awx or ansible.controller still works with older ansible.
   - role-name[path]
-  - sanity[cannot-ignore]  # We're only ignoring sanity rules when we have to
+  - sanity[cannot-ignore] # We're only ignoring sanity rules when we have to
   - var-naming[no-role-prefix]
   - name[prefix]
   - internal-error

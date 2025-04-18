@@ -5,30 +5,28 @@ version: 3.1.0-devel
 description: A collection of roles to manage Ansible Controller
 readme: README.md
 authors:
-    - Andrew Huffman
-    - Adebisi Oyawale @aoyawale
-    - Kedar Kulkarni @kedark3
-    - Tom Page @Tompage1994
-    - Sean Sullivan @sean-m-sullivan
-    - David Danielsson @djdanielsson
-    - Ivan Aragonés
-    - Silvio Perez
-    - Adonis García
+  - Andrew Huffman
+  - Adebisi Oyawale @aoyawale
+  - Kedar Kulkarni @kedark3
+  - Tom Page @Tompage1994
+  - Sean Sullivan @sean-m-sullivan
+  - David Danielsson @djdanielsson
+  - Ivan Aragonés
+  - Silvio Perez
+  - Adonis García
 repository: https://github.com/redhat-cop/infra.controller_configuration/
 issues: https://github.com/redhat-cop/infra.controller_configuration/issues
 build_ignore:
-    - galaxy.yml.j2
-    - release.yml
-    - .github
-    - .ansiblelint.yml
-    - .yamllint.yml
-    - '*.tar.gz'
+  - galaxy.yml.j2
+  - release.yml
+  - .github
+  - '*.tar.gz'
 license:
-    - GPL-3.0-or-later
+  - GPL-3.0-or-later
 tags:
-    - controller
-    - collection
-    - controller_configuration
-    - automation_platform
-    - infrastructure
+  - controller
+  - collection
+  - controller_configuration
+  - automation_platform
+  - infrastructure
 ...

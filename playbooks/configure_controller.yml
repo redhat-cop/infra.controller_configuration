@@ -5,9 +5,10 @@
   tasks:
     - name: Include vars from configs directory
       ansible.builtin.include_vars:
-        dir: "{{ controller_configs_dir | default((lookup('env', 'CONTROLLER_CONFIGS_DIR') == '') | ternary('./configs', lookup('env', 'CONTROLLER_CONFIGS_DIR'))) }}"
+        dir: "{{ controller_configs_dir | default((lookup('env', 'CONTROLLER_CONFIGS_DIR') == '') | ternary('./configs', lookup('env', 'CONTROLLER_CONFIGS_DIR')))
+          }}"
         ignore_files: [controller_config.yml.template]
-        extensions: ["yml"]
+        extensions: [yml]
       tags:
         - always
 

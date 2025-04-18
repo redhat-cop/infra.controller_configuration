@@ -1,5 +1,5 @@
 ---
-- name: "Get list of files inside {{ filetree_controller_teams }}"
+- name: Get list of files inside {{ filetree_controller_teams }}
   ansible.builtin.find:
     paths: "{{ filetree_controller_teams }}"
     file_type: file
@@ -9,7 +9,7 @@
     recurse: true
   register: __list_files_controller_teams
 
-- name: "Read Teams definitions"
+- name: Read Teams definitions
   ansible.builtin.include_vars:
     file: "{{ __read_teams_definitions_item.path }}"
   loop: "{{ __list_files_controller_teams.files }}"
@@ -18,7 +18,7 @@
   register: __contents_filetree_controller_teams
   failed_when: "'VARIABLE IS NOT DEFINED' in __contents_filetree_controller_teams"
 
-- name: "Set Teams Data Structure"
+- name: Set Teams Data Structure
   ansible.builtin.set_fact:
     controller_teams: >-
       {{

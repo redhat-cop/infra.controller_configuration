@@ -1,5 +1,5 @@
 ---
-- name: "Get list of files inside {{ filetree_controller_inventories }}"
+- name: Get list of files inside {{ filetree_controller_inventories }}
   ansible.builtin.find:
     paths: "{{ filetree_controller_inventories }}"
     file_type: file
@@ -9,7 +9,7 @@
     recurse: true
   register: __list_files_controller_inventories
 
-- name: "Read Inventories definitions"
+- name: Read Inventories definitions
   ansible.builtin.include_vars:
     file: "{{ __read_inventories_definitions_item.path }}"
   loop: "{{ __list_files_controller_inventories.files }}"
@@ -18,7 +18,7 @@
   register: __contents_filetree_controller_inventories
   failed_when: "'VARIABLE IS NOT DEFINED' in __contents_filetree_controller_inventories"
 
-- name: "Set Inventories Data Structure"
+- name: Set Inventories Data Structure
   ansible.builtin.set_fact:
     controller_inventories: >-
       {{
