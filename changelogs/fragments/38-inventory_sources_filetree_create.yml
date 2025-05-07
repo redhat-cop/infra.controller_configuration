@@ -1,4 +1,0 @@
----
-bugfixes:
-  - Fix missing variable not in the correct dict field in filetree_create on inventory_sources
-...
