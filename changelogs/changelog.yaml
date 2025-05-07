@@ -815,3 +815,11 @@ releases:
     - filetree_create_24.yml
     - readme_updates.yml
     release_date: '2025-04-17'
+  3.1.2:
+    changes:
+      bugfixes:
+      - Fix missing variable not in the correct dict field in filetree_create on inventory_sources
+    fragments:
+    - 38-inventory_sources_filetree_create.yml
+    - ansible-lint.yml
+    release_date: '2025-05-07'

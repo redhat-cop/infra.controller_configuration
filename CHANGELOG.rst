@@ -4,6 +4,14 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.1.2
+======
+
+Bugfixes
+--------
+
+- Fix missing variable not in the correct dict field in filetree_create on inventory_sources
+
 v3.1.0
 ======
 

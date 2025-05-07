@@ -1,4 +1,0 @@
----
-trivial:
-  - updated .ansible-lint to match aap_configuration config and added 2 rules plus a inline rule to clear errors/warnings
-...
