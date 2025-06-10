@@ -3,9 +3,10 @@
 controller_workflows:
 {% endif %}
   - name: "{{ current_workflow_job_templates_asset_value.name }}"
-    description: "{{ template_overrides_resources.workflow_job_template[current_workflow_job_templates_asset_value.name].description
-                     | default(template_overrides_global.workflow_template.description)
-                     | default(current_workflow_job_templates_asset_value.description) }}"
+    description: !unsafe '{{ template_overrides_resources.workflow_job_template[current_workflow_job_templates_asset_value.name].description
+                             | default(template_overrides_global.workflow_template.description)
+                             | default(current_workflow_job_templates_asset_value.description) | regex_replace("'", "''")
+    }}'
     organization: "{{ current_workflow_job_templates_asset_value.summary_fields.organization.name | default(organization if organization != 'ORGANIZATIONLESS' else 'ToDo: The WF \'' + current_workflow_job_templates_asset_value.name + '\' must belong to an organization') }}"
     simplified_workflow_nodes:
 {% for node in query(controller_api_plugin, 'api/v2/workflow_job_template_nodes/',
@@ -19,6 +20,22 @@ controller_workflows:
         workflow_job_template: "{{ node.summary_fields.workflow_job_template.name }}"
 {% if node.summary_fields.unified_job_template.unified_job_type is not match('approval') %}
         unified_job_template: "{{ node.summary_fields.unified_job_template.name | default('ToDo: The node is pointing to a deleted Job Template') }}"
+{%   if node.verbosity != None %}
+        verbosity: "{{ node.verbosity }}"
+{%   else %}
+{%     set jt_var = query(controller_api_plugin, 'api/v2/job_templates',
+                          query_params={'name': node.summary_fields.unified_job_template.name},
+                          host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs,
+                          return_all=true, max_objects=query_controller_api_max_objects) %}
+{%     if jt_var | length > 0 %}
+{%       if jt_var[0]['ask_verbosity_on_launch'] %}
+        verbosity = "{{ jt_var[0]['verbosity'] }}"
+{%       endif %}
+{%     endif %}
+{%   endif %}
+{% endif %}
+{% if node.limit is defined %}
+        limit: "{{ node.limit }}"
 {% endif %}
 {% if node.job_type %}
         job_type: "{{ node.job_type }}"
@@ -51,19 +68,19 @@ controller_workflows:
 {% if node.success_nodes is defined and node.success_nodes | length > 0 %}
         success_nodes:
 {% for success in node.success_nodes %}
-          - {{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(success | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}
+          - "{{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(success | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}"
 {% endfor %}
 {% endif %}
 {% if node.always_nodes and node.always_nodes | length > 0 %}
         always_nodes:
 {% for always in node.always_nodes %}
-          - {{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(always | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}
+          - "{{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(always | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}"
 {% endfor %}
 {% endif %}
 {% if node.failure_nodes and node.failure_nodes | length > 0 %}
         failure_nodes:
 {% for failure in node.failure_nodes %}
-          - {{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(failure | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}
+          - "{{ query(controller_api_plugin, 'workflow_job_template_nodes/'+(failure | string), host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)[0].identifier }}"
 {% endfor %}
 {% endif %}
 {% endfor %}
@@ -106,7 +123,9 @@ controller_workflows:
       {{ extra_vars_item.key }}: {{ (extra_vars_item.value | regex_replace("\n", "\\\\n") | regex_replace('"', '\\"')) | regex_replace('(^[^{]*){([{%])(.*)', '!unsafe "\\g<1>{\\g<2>\\g<3>"', multiline=True) }}
 {%     endif %}
 {%   endfor %}
-{%- endif %}
+{% else %}
+    extra_vars: ""
+{% endif %}
 {% if query_labels | length > 0 %}
     labels:
 {% for label in query_labels %}
@@ -147,7 +166,7 @@ controller_workflows:
 -%}
 {% if template_overrides_resources.workflow_job_template[current_workflow_job_templates_asset_value.name].survey_spec is defined
       or template_overrides_global.workflow_job_template.survey_spec is defined
-      or (current_workflow_job_templates_asset_value.related.survey_spec is defined and (survey_spec_contents | length > 0 and survey_spec_contents[0] | length > 0)) %}
+      or (current_workflow_job_templates_asset_value.related.survey_spec is defined and (survey_spec_contents | length > 0 and survey_spec_contents | first | length > 0)) %}
     survey_spec:
 {% for spec_item in survey_spec_contents %}
       name: "{{ spec_item.name }}"
@@ -155,7 +174,7 @@ controller_workflows:
 {%   for survey_item in spec_item.spec if ((survey_item | string | length) > 0 and (survey_item | string) is not match('None')) %}
 {%     set _var = namespace(first_survey_item = true) %}
 {%     for survey_item_content in (survey_item | dict2items) if ((survey_item_content.value | string | length) > 0 and (survey_item_content.value | string) is not match('None')) %}
-{%       if survey_item_content.key | regex_search('question_description|default') %}
+{%       if survey_item_content.key | regex_search('question_name|question_description|default') %}
 {%         set current_content = survey_item_content.key + ': !unsafe "' + (survey_item_content.value | regex_replace("\n", "\\\\n") | regex_replace('"', '\\"')) + '"' %}
 {%       elif survey_item_content.key is not match('choices') %}
 {%         set current_content = survey_item_content.key + ': ' + survey_item_content.value | string %}

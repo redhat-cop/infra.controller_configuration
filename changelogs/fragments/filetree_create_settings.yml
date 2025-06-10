@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - Get all the settings and not only the changed ones. For example, SAML related information was missing in the exported data.
+...

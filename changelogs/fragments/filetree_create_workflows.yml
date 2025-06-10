@@ -1,0 +1,7 @@
+---
+bugfixes:
+  - Porting fixes from `infra.aap_configuration_extended` for workflows (description with non-regular characters)
+  - Porting fixes from `infra.aap_configuration_extended` for workflows (new fields - [verbosity, limit, extra_vars])
+  - Porting fixes from `infra.aap_configuration_extended` for workflows (quoted strings in '_nodes' list)
+  - Porting fixes from `infra.aap_configuration_extended` for workflows (non-regular characters for survey's question descriptions)
+...

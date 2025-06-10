@@ -10,7 +10,7 @@ controller_inventory_sources:
 {% if inventory_source.summary_fields.organization is defined %}
     organization: "{{ inventory_source.summary_fields.organization.name }}"
 {% endif %}
-    {% set _source_type = template_overrides_resources.inventory_source[inventory_source.name].source
+{% set _source_type = template_overrides_resources.inventory_source[inventory_source.name].source
                 | default(template_overrides_global.inventory_source.source)
                 | default(inventory_source.source)
                 | default('ToDo: The source of the inventory_source was originally missing and must be specified', true) %}
