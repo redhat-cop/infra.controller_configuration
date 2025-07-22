@@ -8,7 +8,7 @@
 This Ansible collection allows for easy interaction with an AWX or Ansible Controller server via Ansible roles using the AWX/Controller collection modules.
 
 ## Deprecation warning!!!!!!!
-This collection only supports AWX and AAP 2.4 and earlier. For AAP 2.5+ take a look at our [new collection](https://github.com/redhat-cop/infra.aap_configuration) that allows you to manage your whole AAP configuration in one place. We will try and continue supporting this collection until AAP 2.4 support ends (currently set for 12/31/2025)[lifecycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform).
+This collection only supports AWX and AAP 2.4 and earlier. For AAP 2.5+ take a look at our [new collection](https://github.com/redhat-cop/infra.aap_configuration) that allows you to manage your whole AAP configuration in one place. We will try and continue supporting this collection until AAP 2.4 support ends (currently set for 06/30/2026)[lifecycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform).
 
 ## Getting Help
 
