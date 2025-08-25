@@ -1,16 +1,17 @@
 ---
 # This workflow action will run pre-commit, which will execute ansible and yaml linting
 # See .pre-commit-config.yaml for what hooks are executed
-name: Release
+name: Release - Automated
 
 on:
-  release:
-    types:
-      - published
+  schedule:
+    - cron: "0 0 1,15 * *"
+  workflow_dispatch:
 
 jobs:
   release:
-    uses: "redhat-cop/ansible_collections_tooling/.github/workflows/release_pipeline_dual.yml@main"
+    name: Release Collection to galaxy/AH
+    uses: "redhat-cop/ansible_collections_tooling/.github/workflows/release_pipeline_dual_crc.yml@main"
     with:
       # Galaxy Publish
       collection_namespace_1: infra
@@ -24,15 +25,15 @@ jobs:
       publish_url_collection_2: https://cloud.redhat.com/api/automation-hub/
       galaxy_publish_2: false
       ah_publish_2: true
-      collection_version: ${{ github.event.release.tag_name }}
       collection_repo: https://github.com/redhat-cop/infra.controller_configuration/
       quay_username: redhat_cop
-      collection_dependencies: awx.awx
-      matrix_message: This Ansible collection allows for easy interaction with an AWX or Ansible Controller server via Ansible roles using the AWX/Controller collection modules.
+      collection_dependencies: ansible.controller ansible.platform ansible.eda ansible.hub
+      matrix_message: This Ansible collection allows for easy interaction with Ansible Automation Platform via Ansible roles using the supported collections modules.
     secrets:
       collection_api_key_1: ${{ secrets.GALAXY_INFRA_KEY }}
       collection_api_key_2: ${{ secrets.CRC_PUBLISH_KEY }}
       git_token: ${{ secrets.GH_WORKFLOW_KEY }}
       quay_token: ${{ secrets.quay_token }}
       matrix_token: ${{ secrets.matrix_token }}
+
 ...
