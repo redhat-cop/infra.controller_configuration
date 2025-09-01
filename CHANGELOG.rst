@@ -4,6 +4,20 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.1.3
+======
+
+Bugfixes
+--------
+
+- Get all the settings and not only the changed ones. For example, SAML related information was missing in the exported data.
+- Porting fixes from `infra.aap_configuration_extended` for workflows (description with non-regular characters)
+- Porting fixes from `infra.aap_configuration_extended` for workflows (new fields - [verbosity, limit, extra_vars])
+- Porting fixes from `infra.aap_configuration_extended` for workflows (non-regular characters for survey's question descriptions)
+- Porting fixes from `infra.aap_configuration_extended` for workflows (quoted strings in '_nodes' list)
+- remove extra space from exported constructed inventories (source_vars).
+- remove extra spaces from exported inventory sources (source - scm).
+
 v3.1.2
 ======
 
