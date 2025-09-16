@@ -14,6 +14,17 @@
     assign_default_ee_to_org: "{{ __role.assign_default_ee_to_org | default(false) }}"
     assign_notification_templates_to_org: "{{ __role.assign_notification_templates_to_org | default(false) }}"
 
+- name: Display errors and fail
+  when:
+    - controller_configuration_role_errors is defined
+    - controller_configuration_role_errors is mapping
+    - controller_configuration_role_errors | dict2items | selectattr('value', 'ne', []) | list | length > 0
+  ansible.builtin.debug:
+    msg:
+      - "Errors encountered applying configurations:"
+      - "{{ controller_configuration_role_errors }}"
+  failed_when: controller_configuration_role_errors | dict2items | selectattr('value', 'ne', []) | list | length > 0
+
 - name: Fail the playbook if there were errors (check mode only)
   ansible.builtin.fail:
     msg: The execution has failed because of errors (probably due to missing dependencies caused by check mode).
