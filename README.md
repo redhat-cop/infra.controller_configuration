@@ -192,7 +192,7 @@ fatal: [localhost]: FAILED! => {
     ]
 }
 ```
- 
+
 ### Automate the Automation
 
 Every Ansible Controller instance has it's own particularities and needs. Every administrator team has it's own practices and customs. This collection allows adaptation to every need, from small to large scale, having the objects distributed across multiple environments and leveraging Automation Webhook that can be used to link a Git repository and Ansible automation natively.
