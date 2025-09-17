@@ -13,6 +13,7 @@ authors:
   - Ivan Aragonés
   - Silvio Perez
   - Adonis García
+  - Brant Evans @branic
 repository: https://github.com/redhat-cop/infra.controller_configuration/
 issues: https://github.com/redhat-cop/infra.controller_configuration/issues
 build_ignore:
