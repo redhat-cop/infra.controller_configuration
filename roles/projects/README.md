@@ -23,7 +23,7 @@ Currently:
 |`controller_password`|""|no|str|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
 |`controller_oauthtoken`|""|no|str|Controller Admin User's token on the Ansible Controller Server. This should be stored in an Ansible Vault at or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
 |`controller_request_timeout`|`10`|no|int|Specify the timeout in seconds Ansible should use in requests to the controller host.||
-|`controller_configuration_collect_logs`|`false`|no|Specify whether to collect async results and continue for all failed async tasks instead of failing on the first error. Collected results are available in the `controller_configuration_role_errors` variable.||
+|`controller_configuration_collect_logs`|`false`|no|bool|Specify whether to collect async results and continue for all failed async tasks instead of failing on the first error. Collected results are available in the `controller_configuration_role_errors` variable.||
 |`controller_projects`|`see below`|yes|str|Data structure describing your project or projects Described below. Alias: projects ||
 
 ### Enforcing defaults
