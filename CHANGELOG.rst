@@ -4,8 +4,29 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.2.0
+======
+
+Minor Changes
+-------------
+
+- Add the ability to collect error logs while configuring the object, instead of failing on the first error.
+
+Bugfixes
+--------
+
+- Fixes a bug where a survey option's default choice wasn't included in the choice list
+- Fixes an issue with the filetree_create role adding a '...' separate between each item in the job templates list flatten output is set to true.
+- Get all the settings and not only the changed ones. For example, SAML related information was missing in the exported data.
+- Porting fixes from `infra.aap_configuration_extended` for workflows (description with non-regular characters)
+- Porting fixes from `infra.aap_configuration_extended` for workflows (new fields - [verbosity, limit, extra_vars])
+- Porting fixes from `infra.aap_configuration_extended` for workflows (non-regular characters for survey's question descriptions)
+- Porting fixes from `infra.aap_configuration_extended` for workflows (quoted strings in '_nodes' list)
+- remove extra space from exported constructed inventories (source_vars).
+- remove extra spaces from exported inventory sources (source - scm).
+
 v3.1.4
-=======
+======
 
 v3.1.3
 ======

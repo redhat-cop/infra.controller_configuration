@@ -1,5 +1,0 @@
----
-bugfixes:
-  - remove extra space from exported constructed inventories (source_vars).
-  - remove extra spaces from exported inventory sources (source - scm).
-...
