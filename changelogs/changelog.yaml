@@ -875,3 +875,18 @@ releases:
     - filetree_create_settings.yaml
     - filetree_create_workflows.yaml
     release_date: '2025-10-01'
+  3.2.1:
+    changes:
+      bugfixes:
+      - Fixes an typo in add_workflows_schema.yml task file.
+      - filetree_create - Avoid job_templates and workflow_job_templates export failure
+        if all their extra_vars are commented
+      - filetree_create - Don't export the unified_job_template related info if it's
+        not defined
+      - filetree_create - quote question_name in the survey of job_templates
+    fragments:
+    - filtree_commented_extra_vars_.yaml
+    - filtree_create_workflow_job_templates.yaml
+    - filtree_quote_survey_var.yaml
+    - fix_typo_workflow_job_templates_secure_logging.yml
+    release_date: '2026-02-01'

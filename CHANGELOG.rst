@@ -4,6 +4,17 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.2.1
+======
+
+Bugfixes
+--------
+
+- Fixes an typo in add_workflows_schema.yml task file.
+- filetree_create - Avoid job_templates and workflow_job_templates export failure if all their extra_vars are commented
+- filetree_create - Don't export the unified_job_template related info if it's not defined
+- filetree_create - quote question_name in the survey of job_templates
+
 v3.2.0
 ======
 
