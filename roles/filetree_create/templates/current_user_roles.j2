@@ -19,6 +19,7 @@ controller_roles:
 {% elif (role|dict2items)[0].value.resource_type is match('project') %}
     projects:
 {% elif (role|dict2items)[0].value.resource_type is match('credential') %}
+    credentials:
 {% elif (role|dict2items)[0].value.resource_type is match('instance_group') %}
     instance_groups:
 {% endif %}
