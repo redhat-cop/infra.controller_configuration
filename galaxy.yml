@@ -1,6 +1,6 @@
 namespace: infra
 name: controller_configuration
-version: 3.2.3-devel
+version: 3.2.4
 description: A collection of roles to manage Ansible Controller
 readme: README.md
 authors:

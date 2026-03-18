@@ -890,3 +890,40 @@ releases:
     - filtree_quote_survey_var.yaml
     - fix_typo_workflow_job_templates_secure_logging.yml
     release_date: '2026-02-01'
+  3.2.4:
+    changes:
+      bugfixes:
+      - Added Dependabot configuration for automated updates of GitHub Actions, pip
+        dependencies, and pre-commit hooks.
+      - Added build-import workflow using ansible/ansible-content-actions.
+      - Added changelog validation workflow using ansible/ansible-content-actions.
+      - Added sanity ignore file for ansible-core 2.19 (devel) to skip line-endings
+        check on docs/aap_config_as_code_public_meeting.ics.
+      - Added sanity test workflow using ansible/ansible-content-actions.
+      - Fix a boolean value in a when expression, as the evaluation is against a boolean
+        value and not against a list
+      - Fixed YAML quoting in filetree_create role task names to resolve ansible-lint
+        load-failure errors.
+      - Fixed black formatting issues in controller_export_diff and controller_object_diff
+        modules.
+      - Fixed controller_export_diff module to handle missing ControllerAWXKitModule
+        gracefully, preventing NameError during sanity tests.
+      - Fixed markdown table alignment (MD060) across all role README files and the
+        top-level README.
+      - Removed update_pre_commit.yml workflow in favor of Dependabot.
+      - Replaced complex CI/CD workflows that delegated to ansible_collections_tooling
+        with simplified, self-contained GitHub Actions workflows.
+      - Replaced release_auto.yml with a fully inlined workflow covering version calculation,
+        changelog generation, GitHub release, Galaxy/Automation Hub publishing, EE
+        build, and Matrix notifications.
+      - Simplified pre-commit workflow to directly invoke pre-commit/action instead
+        of delegating to external tooling.
+      - job_templates - if job templates enforce defaults is true, allow credentials
+        to be removed from JT if not set or set to empty value
+      - lintering fixes
+    fragments:
+    - fix_boolean_value.yaml
+    - job_templates_llow_empty_credentials.yml
+    - lintering.yml
+    - simplify_ci_and_fixes.yaml
+    release_date: '2026-03-18'

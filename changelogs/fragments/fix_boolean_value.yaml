@@ -1,4 +1,0 @@
----
-bugfixes:
-  - Fix a boolean value in a when expression, as the evaluation is against a boolean value and not against a list
-...
