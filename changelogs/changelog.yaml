@@ -927,3 +927,11 @@ releases:
     - lintering.yml
     - simplify_ci_and_fixes.yaml
     release_date: '2026-03-18'
+  3.2.5:
+    changes:
+      bugfixes:
+      - All the when clauses of the filetree_read role has been reviewed to provide
+        boolean values (lists were provided before)
+    fragments:
+    - when_must_get_booleans.yaml
+    release_date: '2026-03-20'

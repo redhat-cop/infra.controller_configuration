@@ -1,4 +1,0 @@
----
-bugfixes:
-  - All the when clauses of the filetree_read role has been reviewed to provide boolean values (lists were provided before)
-...

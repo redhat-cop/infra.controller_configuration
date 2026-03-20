@@ -4,6 +4,14 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.2.5
+======
+
+Bugfixes
+--------
+
+- All the when clauses of the filetree_read role has been reviewed to provide boolean values (lists were provided before)
+
 v3.2.4
 ======
 
