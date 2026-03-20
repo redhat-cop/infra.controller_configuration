@@ -26,10 +26,14 @@
   loop_control:
     loop_var: __populate_settings_list_item
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-  when: __contents_filetree_controller_settings.results is defined and __populate_settings_list_item.ansible_facts.controller_settings is defined
+  when:
+    - __contents_filetree_controller_settings.results is defined
+    - __populate_settings_list_item.ansible_facts.controller_settings is defined
 
 - name: settings | Segregated Settings list when controller_location is defined
-  when: controller_location is defined and __populate_controller_settings is defined
+  when:
+    - controller_location is defined
+    - __populate_controller_settings is defined
   block:
     - name: settings | Populate Settings list by _common objects
       ansible.builtin.set_fact:
@@ -47,7 +51,9 @@
       loop_control:
         loop_var: __populate_settings_list_site_item
       no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-      when: __populate_settings_list_site_item.controller_location is defined and __populate_settings_list_site_item.controller_location == controller_location
+      when:
+        - __populate_settings_list_site_item.controller_location is defined
+        - __populate_settings_list_site_item.controller_location == controller_location
 
     - name: settings | Concatenate Settings list common + site
       ansible.builtin.set_fact:

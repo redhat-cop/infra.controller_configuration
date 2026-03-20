@@ -26,11 +26,14 @@
   loop_control:
     loop_var: __populate_execution_environments_list_item
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-  when: __contents_filetree_controller_execution_environments.results is defined and __populate_execution_environments_list_item.ansible_facts.controller_execution_environments
-    is defined
+  when:
+    - __contents_filetree_controller_execution_environments.results is defined
+    - __populate_execution_environments_list_item.ansible_facts.controller_execution_environments is defined
 
 - name: execution_environments | Segregated Execution Environments list when controller_location is defined
-  when: controller_location is defined and __populate_controller_execution_environments is defined
+  when:
+    - controller_location is defined
+    - __populate_controller_execution_environments is defined
   block:
     - name: execution_environments | Populate Execution Environments list by _common objects
       ansible.builtin.set_fact:
@@ -50,8 +53,9 @@
       loop_control:
         loop_var: __populate_execution_environments_list_site_item
       no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-      when: __populate_execution_environments_list_site_item.controller_location is defined and __populate_execution_environments_list_site_item.controller_location
-        == controller_location
+      when:
+        - __populate_execution_environments_list_site_item.controller_location is defined
+        - __populate_execution_environments_list_site_item.controller_location == controller_location
 
     - name: execution_environments | Concatenate Execution Environments list common + site
       ansible.builtin.set_fact:
