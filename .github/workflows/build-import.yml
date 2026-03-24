@@ -6,6 +6,9 @@ on:
     branches: [devel]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build-import:
     uses: ansible/ansible-content-actions/.github/workflows/build_import.yaml@main

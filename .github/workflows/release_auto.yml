@@ -6,6 +6,9 @@ on:
     - cron: "0 0 1,15 * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 env:
   COLLECTION_NAMESPACE: infra
   COLLECTION_NAME: controller_configuration
@@ -15,6 +18,8 @@ jobs:
   calculate_version:
     name: Calculate Collection Version
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       collection_version: ${{ steps.bump-semver.outputs.new_version }}
       change_level: ${{ steps.bump_level.outputs.level }}
@@ -117,6 +122,8 @@ jobs:
       && needs.calculate_version.outputs.change_present != 'false')
       || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -142,16 +149,6 @@ jobs:
       - name: Generate changelog
         run: antsibull-changelog release --verbose --version ${{ needs.calculate_version.outputs.collection_version }}
 
-      # this action wasn't working as expected, so we're using the following steps instead
-      # - name: Push to release branch
-      #   uses: devops-infra/action-commit-push@master
-      #   with:
-      #     github_token: "${{ secrets.GH_WORKFLOW_KEY }}"
-      #     add_timestamp: false
-      #     commit_prefix: "[AUTO]"
-      #     commit_message: "Update changelog ${{ needs.calculate_version.outputs.collection_version }}"
-      #     force: false
-      #     target_branch: release/${{ needs.calculate_version.outputs.collection_version }}
       - name: Commit and push to release branch
         run: |
           git config user.name "github-actions[bot]"
@@ -166,9 +163,11 @@ jobs:
       - changelog
       - calculate_version
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ needs.calculate_version.outputs.collection_version }}
@@ -180,6 +179,8 @@ jobs:
       - create_github_release
       - calculate_version
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment: release
     steps:
       - uses: actions/checkout@v6
@@ -200,6 +201,8 @@ jobs:
       - create_github_release
       - calculate_version
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment: release
     steps:
       - uses: actions/checkout@v6
@@ -245,6 +248,8 @@ jobs:
       - create_github_release
       - calculate_version
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -254,7 +259,7 @@ jobs:
         run: ansible-galaxy collection build -v --force
 
       - name: Upload tarball to GitHub release
-        uses: svenstaro/upload-release-action@v2
+        uses: svenstaro/upload-release-action@29e53e917877a24fad85510ded594ab3c9ca12de # v2
         with:
           repo_token: ${{ secrets.GH_WORKFLOW_KEY }}
           file: "${{ env.COLLECTION_NAMESPACE }}-${{ env.COLLECTION_NAME }}*.tar.gz"
@@ -269,6 +274,9 @@ jobs:
       - release_check
       - upload_tarball
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -302,7 +310,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send message to newsbot channel
-        uses: fadenb/matrix-chat-message@v0.0.6
+        uses: fadenb/matrix-chat-message@ebed8e16810cbf56a6f5aaa41744a212d46f444f # v0.0.6
         with:
           homeserver: "matrix.org"
           token: ${{ secrets.matrix_token }}
@@ -314,7 +322,7 @@ jobs:
             Visit ${{ env.COLLECTION_REPO }} For more information and updates.
 
       - name: Send message to team channel
-        uses: fadenb/matrix-chat-message@v0.0.6
+        uses: fadenb/matrix-chat-message@ebed8e16810cbf56a6f5aaa41744a212d46f444f # v0.0.6
         with:
           homeserver: "matrix.org"
           token: ${{ secrets.matrix_token }}

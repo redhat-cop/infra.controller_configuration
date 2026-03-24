@@ -21,6 +21,9 @@ env:
   # Run docker-compose up in the background
   COMPOSE_UP_OPTS: -d
 
+permissions:
+  contents: read
+
 jobs:
   integration:
     runs-on: ubuntu-latest
@@ -79,7 +82,7 @@ jobs:
         run: which python && pip --version && ansible --version
 
       - name: Build and install the collection
-        uses: redhat-cop/ansible_collections_tooling/actions/build_ansible_collection@main
+        uses: redhat-cop/ansible_collections_tooling/actions/build_ansible_collection@634342818b5d5fa2fa92b2c68c78a2bbe8aa4f10 # main
         with:
           collection_namespace: infra
           collection_name: controller_configuration

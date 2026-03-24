@@ -4,6 +4,9 @@ name: Check changelog
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   changelog:
     uses: ansible/ansible-content-actions/.github/workflows/changelog.yaml@main
