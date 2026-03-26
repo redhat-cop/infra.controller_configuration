@@ -20,4 +20,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           labels: 'inactive'
           inactive-day: 7
-...

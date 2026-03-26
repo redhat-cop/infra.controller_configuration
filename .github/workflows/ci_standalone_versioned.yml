@@ -1,22 +1,13 @@
 ---
 name: Test collection with AWX
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      awx_version:
+        description: The version of AWX to pull
+        required: true
+        type: string
 
-# on:
-#   workflow_call:
-#     inputs:
-#       awx_version:
-#         description: The version to pull of awx
-#         required: true
-#         type: string
-#       gh_ref:
-#         description: The ref in the repository to pull
-#         required: false
-#         default: devel
-#         type: string
 env:
   # Run docker-compose up in the background
   COMPOSE_UP_OPTS: -d
@@ -29,18 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: ${{ inputs.awx_version == 'devel' }}
     steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ inputs.gh_ref }}
+      # Implicit ref: same commit as the caller workflow (avoids untrusted PR checkout)
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Checkout AWX
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: ansible/awx
           path: awx
           ref: ${{ inputs.awx_version }}
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.11"
 
@@ -97,4 +87,3 @@ jobs:
 
       - name: "Perform export model playbook tests"
         run: ansible-playbook tests/configure_controller_export_model.yml -e controller_hostname=localhost:8043 -v -e awx_version=${{ inputs.awx_version }}
-...

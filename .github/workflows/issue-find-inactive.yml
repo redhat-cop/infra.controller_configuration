@@ -21,4 +21,3 @@ jobs:
           inactive-day: 30
           issue-state: open
           exclude-labels: 'new,enhancement,backlog,help wanted,module-issue,blocked - upstream'
-...

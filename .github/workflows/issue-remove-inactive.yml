@@ -22,4 +22,3 @@ jobs:
           actions: 'remove-labels'
           issue-number: ${{ github.event.issue.number }}
           labels: 'inactive'
-...

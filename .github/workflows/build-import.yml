@@ -11,4 +11,4 @@ permissions:
 
 jobs:
   build-import:
-    uses: ansible/ansible-content-actions/.github/workflows/build_import.yaml@main
+    uses: ansible/ansible-content-actions/.github/workflows/build_import.yaml@8d811a21e588dc6692299797e9a2bab1205365dc # main
