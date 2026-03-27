@@ -1,4 +1,4 @@
-# infra.aap_configuration.collect_async_status
+# infra.controller_configuration.collect_async_status
 
 ## Description
 
