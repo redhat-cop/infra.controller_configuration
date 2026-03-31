@@ -1,4 +1,4 @@
 ---
-minor_changes:
+bugfixes:
   - Doc fixes where it was referencing `infra.aap_configuration` and `infra.aap_configuration_extended` erroneously
 ...
