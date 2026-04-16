@@ -1,4 +1,0 @@
----
-bugfixes:
-  - Fix multiline assignments that are causing issues when passed to the ansible.controller collection modules
-...

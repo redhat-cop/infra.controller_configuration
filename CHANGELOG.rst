@@ -4,6 +4,15 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.2.6
+======
+
+Bugfixes
+--------
+
+- Doc fixes where it was referencing `infra.aap_configuration` and `infra.aap_configuration_extended` erroneously
+- Fix multiline assignments that are causing issues when passed to the ansible.controller collection modules
+
 v3.2.5
 ======
 

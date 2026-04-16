@@ -935,3 +935,14 @@ releases:
     fragments:
     - when_must_get_booleans.yaml
     release_date: '2026-03-20'
+  3.2.6:
+    changes:
+      bugfixes:
+      - Doc fixes where it was referencing `infra.aap_configuration` and `infra.aap_configuration_extended`
+        erroneously
+      - Fix multiline assignments that are causing issues when passed to the ansible.controller
+        collection modules
+    fragments:
+    - doc_fixes.yaml
+    - multiline_assignments.yaml
+    release_date: '2026-04-16'
