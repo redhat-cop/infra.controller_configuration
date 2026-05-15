@@ -4,6 +4,15 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.3.0
+======
+
+Minor Changes
+-------------
+
+- README - Standardized collection links tables and added Support section for certification review.
+- meta/runtime.yml - Updated minimum ansible-core version from 2.15 to 2.16.
+
 v3.2.6
 ======
 
