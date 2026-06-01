@@ -946,3 +946,13 @@ releases:
     - doc_fixes.yaml
     - multiline_assignments.yaml
     release_date: '2026-04-16'
+  3.4.0:
+    changes:
+      minor_changes:
+      - README - Standardized collection links tables and added Support section for
+        certification review.
+      - meta/runtime.yml - Updated minimum ansible-core version from 2.15 to 2.16.
+    fragments:
+    - certification-review-updates.yaml
+    - release_auto-automation-hub-console-url.yml
+    release_date: '2026-06-01'
