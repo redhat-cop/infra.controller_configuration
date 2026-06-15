@@ -18,6 +18,7 @@ valid_tags:
   - teams
   - users
   - workflow_job_templates
+  - workflow_job_template_nodes
   - instance_groups
   - applications
   - labels
