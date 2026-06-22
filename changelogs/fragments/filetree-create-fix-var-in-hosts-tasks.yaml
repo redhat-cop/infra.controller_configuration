@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - filetree_create - rename ``first_group`` to ``first_hosts`` in ``hosts.yml`` tasks to match the variable name in the template
