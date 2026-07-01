@@ -1,3 +1,0 @@
----
-bugfixes:
-  - filetree_create - add ``workflow_job_template_nodes`` to ``valid_tags`` so documented input tags pass validation

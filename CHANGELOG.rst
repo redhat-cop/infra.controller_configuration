@@ -4,6 +4,16 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.4.1
+======
+
+Bugfixes
+--------
+
+- filetree_create - add ``workflow_job_template_nodes`` to ``valid_tags`` so documented input tags pass validation
+- filetree_create - changed ``user_roles.yaml`` and ``team_roles.yaml`` to have explicit type conversion for Ansible 2.20
+- filetree_create - rename ``first_group`` to ``first_hosts`` in ``hosts.yml`` tasks to match the variable name in the template
+
 v3.4.0
 ======
 
