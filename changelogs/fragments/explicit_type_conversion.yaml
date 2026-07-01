@@ -1,3 +1,0 @@
----
-bugfixes:
-  - filetree_create - changed ``user_roles.yaml`` and ``team_roles.yaml`` to have explicit type conversion for Ansible 2.20
