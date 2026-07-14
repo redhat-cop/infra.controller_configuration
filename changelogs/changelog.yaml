@@ -946,3 +946,27 @@ releases:
     - doc_fixes.yaml
     - multiline_assignments.yaml
     release_date: '2026-04-16'
+  3.4.0:
+    changes:
+      minor_changes:
+      - README - Standardized collection links tables and added Support section for
+        certification review.
+      - meta/runtime.yml - Updated minimum ansible-core version from 2.15 to 2.16.
+    fragments:
+    - certification-review-updates.yaml
+    - release_auto-automation-hub-console-url.yml
+    release_date: '2026-06-01'
+  3.4.1:
+    changes:
+      bugfixes:
+      - filetree_create - add ``workflow_job_template_nodes`` to ``valid_tags`` so
+        documented input tags pass validation
+      - filetree_create - changed ``user_roles.yaml`` and ``team_roles.yaml`` to have
+        explicit type conversion for Ansible 2.20
+      - filetree_create - rename ``first_group`` to ``first_hosts`` in ``hosts.yml``
+        tasks to match the variable name in the template
+    fragments:
+    - explicit_type_conversion.yaml
+    - filetree-create-fix-var-in-hosts-tasks.yaml
+    - workflow_job_template_nodes_valid_tag.yaml
+    release_date: '2026-07-01'
