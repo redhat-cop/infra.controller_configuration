@@ -15,6 +15,7 @@ exclude_paths:
   - changelogs/
   - tests/
   - .ansible/
+  - collections/ # runtime install of awx.awx for ansible-lint syntax-check
 # quiet: true
 # strict: true
 # verbosity: 1
