@@ -23,11 +23,11 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6
         with:
           python-version: "3.x"
+      # ./collections is on Ansible's search path and excluded from ansible-lint
       - name: Install collections required for ansible-lint
         run: |
           pip install ansible-core
-          rm -rf "${HOME}/.ansible/collections/ansible_collections/awx"
-          ansible-galaxy collection install -r .github/collections/requirements.yml --force
+          ansible-galaxy collection install -r .github/collections/requirements.yml -p collections
       - name: Run default pre-commit hooks
         uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
       - name: Run sanity (manual stage)
