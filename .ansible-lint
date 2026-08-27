@@ -15,7 +15,6 @@ exclude_paths:
   - changelogs/
   - tests/
   - .ansible/
-  - collections/ # runtime install of awx.awx for ansible-lint syntax-check
 # quiet: true
 # strict: true
 # verbosity: 1
@@ -70,6 +69,98 @@ mock_modules:
   - workflow_job_template
   - workflow_launch
   - workflow_node_wait
+  - awx.awx.ad_hoc_command_cancel
+  - awx.awx.ad_hoc_command
+  - awx.awx.ad_hoc_command_wait
+  - awx.awx.application
+  - awx.awx.bulk_host_create
+  - awx.awx.bulk_host_delete
+  - awx.awx.bulk_job_launch
+  - awx.awx.controller_meta
+  - awx.awx.credential_input_source
+  - awx.awx.credential
+  - awx.awx.credential_type
+  - awx.awx.execution_environment
+  - awx.awx.export
+  - awx.awx.group
+  - awx.awx.host
+  - awx.awx.import
+  - awx.awx.instance_group
+  - awx.awx.instance
+  - awx.awx.inventory
+  - awx.awx.inventory_source
+  - awx.awx.inventory_source_update
+  - awx.awx.job_cancel
+  - awx.awx.job_launch
+  - awx.awx.job_list
+  - awx.awx.job_template
+  - awx.awx.job_wait
+  - awx.awx.label
+  - awx.awx.license
+  - awx.awx.notification_template
+  - awx.awx.organization
+  - awx.awx.project
+  - awx.awx.project_update
+  - awx.awx.role_definition
+  - awx.awx.role
+  - awx.awx.role_team_assignment
+  - awx.awx.role_user_assignment
+  - awx.awx.schedule
+  - awx.awx.settings
+  - awx.awx.subscriptions
+  - awx.awx.team
+  - awx.awx.user
+  - awx.awx.workflow_approval
+  - awx.awx.workflow_job_template_node
+  - awx.awx.workflow_job_template
+  - awx.awx.workflow_launch
+  - awx.awx.workflow_node_wait
+  - ansible.controller.ad_hoc_command_cancel
+  - ansible.controller.ad_hoc_command
+  - ansible.controller.ad_hoc_command_wait
+  - ansible.controller.application
+  - ansible.controller.bulk_host_create
+  - ansible.controller.bulk_host_delete
+  - ansible.controller.bulk_job_launch
+  - ansible.controller.controller_meta
+  - ansible.controller.credential_input_source
+  - ansible.controller.credential
+  - ansible.controller.credential_type
+  - ansible.controller.execution_environment
+  - ansible.controller.export
+  - ansible.controller.group
+  - ansible.controller.host
+  - ansible.controller.import
+  - ansible.controller.instance_group
+  - ansible.controller.instance
+  - ansible.controller.inventory
+  - ansible.controller.inventory_source
+  - ansible.controller.inventory_source_update
+  - ansible.controller.job_cancel
+  - ansible.controller.job_launch
+  - ansible.controller.job_list
+  - ansible.controller.job_template
+  - ansible.controller.job_wait
+  - ansible.controller.label
+  - ansible.controller.license
+  - ansible.controller.notification_template
+  - ansible.controller.organization
+  - ansible.controller.project
+  - ansible.controller.project_update
+  - ansible.controller.role_definition
+  - ansible.controller.role
+  - ansible.controller.role_team_assignment
+  - ansible.controller.role_user_assignment
+  - ansible.controller.schedule
+  - ansible.controller.settings
+  - ansible.controller.subscriptions
+  - ansible.controller.team
+  - ansible.controller.user
+  - ansible.controller.workflow_approval
+  - ansible.controller.workflow_job_template_node
+  - ansible.controller.workflow_job_template
+  - ansible.controller.workflow_launch
+  - ansible.controller.workflow_node_wait
 
 # mock_roles:
 #   - mocked_role
