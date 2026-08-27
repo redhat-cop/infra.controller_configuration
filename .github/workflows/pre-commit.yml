@@ -18,11 +18,18 @@ permissions:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    env:
+      ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}/collections
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6
         with:
           python-version: "3.x"
+      - name: Install collections required for ansible-lint
+        run: |
+          pip install ansible-core
+          mkdir -p "${ANSIBLE_COLLECTIONS_PATH}"
+          ansible-galaxy collection install -r .github/collections/requirements.yml -p "${ANSIBLE_COLLECTIONS_PATH}"
       - name: Run default pre-commit hooks
         uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
       - name: Run sanity (manual stage)
