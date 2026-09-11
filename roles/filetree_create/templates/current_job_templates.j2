@@ -229,15 +229,19 @@ controller_templates:
 {%         if current_content is defined %}
           {{ current_content | replace("$encrypted$", "\'\'") }}
 {%         else %}
-{%           if survey_item_content.key is match('choices') and survey_item_content.value[0] is defined %}
+{%           if survey_item_content.key is match('choices') %}
+{%             if survey_item_content.value is string %}
+          choices: !unsafe "{{ survey_item_content.value | regex_replace("\n", "\\\\n", multiline=true) | regex_replace('"', '\\"', multiline=true) }}"
+{%             elif survey_item_content.value is sequence and survey_item_content.value is not string and survey_item_content.value[0] is defined %}
           {{ survey_item_content.key }}:
-{%             for choice in survey_item_content.value if ((survey_item_content.value | string | length) > 0 and (survey_item_content.value | string) is not match('None')) %}
+{%               for choice in survey_item_content.value %}
 {%                 if choice is number %}
             - {{ choice }}
 {%                 else %}
             - !unsafe "{{ choice | regex_replace("\n", "\\\\n", multiline=true) | regex_replace('"', '\\"', multiline=true) }}"
 {%                 endif %}
-{%             endfor %}
+{%               endfor %}
+{%             endif %}
 {%           endif %}
 {%         endif %}
 {%       endif %}
