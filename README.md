@@ -214,7 +214,7 @@ The input data can be organized in a very flexible way, letting the user use any
 
 The awx command line can export json that is compatible with this collection.
 In addition there is an awx.awx/ansible.controller export module that use the awx command line to export.
-See [the export guide](EXPORT_README.md) for more details
+See [the export guide](https://github.com/redhat-cop/infra.controller_configuration/blob/devel/EXPORT_README.md) for more details
 
 ### Template Example
 
