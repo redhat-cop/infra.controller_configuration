@@ -1,3 +1,0 @@
----
-bugfixes:
-  - filetree_create - export survey choices as a string instead of iterating each character when the API returns newline-separated values
