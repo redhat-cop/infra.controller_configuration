@@ -4,6 +4,14 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.4.2
+======
+
+Bugfixes
+--------
+
+- filetree_create - export survey choices as a string instead of iterating each character when the API returns newline-separated values
+
 v3.4.1
 ======
 
