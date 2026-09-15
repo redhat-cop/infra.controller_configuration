@@ -970,3 +970,11 @@ releases:
     - filetree-create-fix-var-in-hosts-tasks.yaml
     - workflow_job_template_nodes_valid_tag.yaml
     release_date: '2026-07-01'
+  3.4.2:
+    changes:
+      bugfixes:
+      - filetree_create - export survey choices as a string instead of iterating each
+        character when the API returns newline-separated values
+    fragments:
+    - filetree_create_survey_choices_string_export.yml
+    release_date: '2026-09-15'
