@@ -1,0 +1,2 @@
+bugfixes:
+  - filetree_create - fix survey choices newline escaping so multiplechoice/multiselect options round-trip as separate choices instead of a single literal ``yes\\nno`` value
