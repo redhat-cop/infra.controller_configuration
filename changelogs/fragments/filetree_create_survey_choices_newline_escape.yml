@@ -1,3 +1,3 @@
 bugfixes:
-  - filetree_create - fix survey choices newline escaping so multiplechoice/multiselect options round-trip as separate choices instead of a single literal ``yes\\nno`` value
-  - filetree_create - export boolean survey defaults/choices (``true``/``false``) as ``!unsafe`` strings so the API does not reject them as non-strings
+  - filetree_create - export survey ``choices`` as a ``!!str`` JSON string so multiplechoice/multiselect options round-trip as separate choices
+  - filetree_create - coerce boolean-looking survey defaults and choices (``true``/``false``/``yes``/``no``) to strings; ``!unsafe`` scalars are loaded as booleans by Ansible and the API rejects them

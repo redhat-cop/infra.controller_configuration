@@ -211,39 +211,58 @@ controller_templates:
       name: "{{ spec_item.name }}"
       spec:
 {%   for survey_item in spec_item.spec %}
-{%     set _var = namespace(first_survey_item = true) %}
+{%     set _var = namespace(first_survey_item = true, content='') %}
 {%     for survey_item_content in (survey_item | dict2items) if ((survey_item_content.value | string | length) > 0 and (survey_item_content.value | string) is not match('None')) %}
-{%       if survey_item_content.key | regex_search('question_description|default') or (survey_item_content.key is match('choices') and survey_item_content.value is string) %}
-{%         if survey_item_content.value is boolean %}
-{%           set current_content = survey_item_content.key + ': !unsafe "' + (survey_item_content.value | string | lower) + '"' %}
-{%         elif survey_item_content.value is number %}
-{%           set current_content = survey_item_content.key + ': ' + survey_item_content.value | string %}
+{%       if survey_item_content.key is match('choices') %}
+{%         set _choices = namespace(parts=[]) %}
+{%         if survey_item_content.value is sequence and survey_item_content.value is not string %}
+{%           for choice in survey_item_content.value %}
+{%             if choice is boolean %}
+{%               set _choices.parts = _choices.parts + [choice | string | lower] %}
+{%             else %}
+{%               set _choices.parts = _choices.parts + [choice | string] %}
+{%             endif %}
+{%           endfor %}
 {%         else %}
-{%           set current_content = survey_item_content.key + ': !unsafe "' + (survey_item_content.value | regex_replace("\n", "\\\\n") | regex_replace('"', '\\"')) | regex_replace('\\\\(?!n|")', '\\\\\\\\') + '"' %}
+{%           for choice in (survey_item_content.value | string).splitlines() %}
+{%             set choice = choice | trim %}
+{%             if choice in ['True', 'False'] %}
+{%               set _choices.parts = _choices.parts + [choice | lower] %}
+{%             elif choice | length > 0 %}
+{%               set _choices.parts = _choices.parts + [choice] %}
+{%             endif %}
+{%           endfor %}
 {%         endif %}
-{%       elif survey_item_content.key is not match('choices') %}
-{%         set current_content = survey_item_content.key + ': ' + survey_item_content.value | string | quote %}
+{%         set _choices_text = _choices.parts | join('\n') %}
+{%         if '{{' in _choices_text or '{%' in _choices_text %}
+{%           set _var.content = 'choices: !unsafe ' + (_choices_text | to_json) %}
+{%         else %}
+{%           set _var.content = 'choices: !!str ' + (_choices_text | to_json) %}
+{%         endif %}
+{%       elif survey_item_content.key | regex_search('question_description|default') %}
+{%         if survey_item_content.value is boolean %}
+{%           set _var.content = survey_item_content.key + ': !!str ' + (survey_item_content.value | string | lower | to_json) %}
+{%         elif survey_item_content.value is number %}
+{%           set _var.content = survey_item_content.key + ': ' + survey_item_content.value | string %}
+{%         else %}
+{%           set _def = survey_item_content.value | string %}
+{%           if _def in ['True', 'False'] %}
+{%             set _def = _def | lower %}
+{%           endif %}
+{%           if '{{' in _def or '{%' in _def %}
+{%             set _var.content = survey_item_content.key + ': !unsafe ' + (_def | to_json) %}
+{%           else %}
+{%             set _var.content = survey_item_content.key + ': !!str ' + (_def | to_json) %}
+{%           endif %}
+{%         endif %}
+{%       else %}
+{%         set _var.content = survey_item_content.key + ': ' + survey_item_content.value | string | quote %}
 {%       endif %}
 {%       if _var.first_survey_item %}
 {%         set _var.first_survey_item = false %}
-        - {{ current_content }}
+        - {{ _var.content }}
 {%       else %}
-{%         if current_content is defined %}
-          {{ current_content | replace("$encrypted$", "\'\'") }}
-{%         else %}
-{%           if survey_item_content.key is match('choices') and survey_item_content.value is sequence and survey_item_content.value is not string and survey_item_content.value[0] is defined %}
-          {{ survey_item_content.key }}:
-{%             for choice in survey_item_content.value %}
-{%               if choice is boolean %}
-            - !unsafe "{{ choice | string | lower }}"
-{%               elif choice is number %}
-            - {{ choice }}
-{%               else %}
-            - !unsafe "{{ choice | regex_replace('"', '\\"') }}"
-{%               endif %}
-{%             endfor %}
-{%           endif %}
-{%         endif %}
+          {{ _var.content | replace("$encrypted$", "\'\'") }}
 {%       endif %}
 {%     endfor %}
 {%   endfor %}
