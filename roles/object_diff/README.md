@@ -18,6 +18,7 @@ The following Variables set the organization where should be applied the configu
 | `drop_user_external_accounts` | `False` | no | When is true, all users will be taken to compare with SCM configuration as code |
 | `protect_not_empty_orgs` | `N/A` | no | When is true, orgs which are not empty, will not be removed |
 | `query_controller_api_max_objects` | 10000 | no | Sets the maximum number of objects to be returned from the API |
+| `controller_configuration_object_diff_query_params` | `{}` | no | Extra API query parameters applied to the list each task fetches before diffing, for example `{'labels__name': 'casc-managed'}`. Narrows the diff to a subset of an organization, so objects the declaration does not cover are neither reported nor removed |
 <!--- | `drop_teams` | `False` | no | When is true, all teams will be taken to compare with SCM configuration as code | -->
 
 ## Role Tags

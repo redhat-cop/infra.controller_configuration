@@ -6,7 +6,7 @@
 
 - name: applications | Get the API list of all Applications in Organization {{ orgs }}
   ansible.builtin.set_fact:
-    __controller_api_applications: "{{ query(controller_api_plugin, 'applications', query_params={'organization': __controller_organization_id.id}, host=controller_hostname,
+    __controller_api_applications: "{{ query(controller_api_plugin, 'applications', query_params={'organization': __controller_organization_id.id} | combine(controller_configuration_object_diff_query_params), host=controller_hostname,
       oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs, return_all=true, max_objects=query_controller_api_max_objects) }}"
 
 - name: applications | Find the difference of Application between what is on the Controller versus CasC on SCM

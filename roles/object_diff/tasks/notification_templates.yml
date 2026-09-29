@@ -6,7 +6,7 @@
 
 - name: notification_templates | Get the API list of all Notification Templates in Organization {{ orgs }}
   ansible.builtin.set_fact:
-    __controller_api_notification_templates: "{{ query(controller_api_plugin, 'notification_templates', query_params={'organization': __controller_organization_id.id},
+    __controller_api_notification_templates: "{{ query(controller_api_plugin, 'notification_templates', query_params={'organization': __controller_organization_id.id} | combine(controller_configuration_object_diff_query_params),
       host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs, return_all=true, max_objects=query_controller_api_max_objects)
       }}"
 
