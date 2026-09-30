@@ -17,6 +17,11 @@ argument_specs:
         required: false
         type: bool
         description: When is true, orgs which are not empty, will not be removed
+      controller_configuration_object_diff_query_params:
+        default: {}
+        required: false
+        type: dict
+        description: "Extra API query parameters applied to the list each task fetches before diffing, for example `{'labels__name': 'casc-managed'}`. Narrows the diff to a subset of an organization."
 
       # Async variables
       controller_configuration_async_retries:
