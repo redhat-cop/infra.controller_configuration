@@ -48,6 +48,10 @@ controller_configuration_object_diff_tasks:
   - { name: organizations, var: controller_organizations, tags: organizations }
   - { name: instance_groups, var: controller_instance_groups, tags: instance_groups }
 
+# Extra API query parameters for the list each task fetches before diffing. Narrows what the diff
+# considers, so a declaration does not have to cover an entire organization.
+controller_configuration_object_diff_query_params: {}
+
 controller_configuration_object_diff_secure_logging: "{{ controller_configuration_secure_logging | default(true) }}"
 
 controller_api_version: v2

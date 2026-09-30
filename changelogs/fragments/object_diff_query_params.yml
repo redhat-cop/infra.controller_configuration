@@ -1,0 +1,4 @@
+---
+minor_changes:
+  - "object_diff role - added ``controller_configuration_object_diff_query_params``, extra API query parameters applied to the list each task fetches before diffing. The diff covered a whole organization, so pruning required a declaration of every object in it; a filter such as ``labels__name`` narrows it to the objects the declaration is responsible for. Defaults to an empty dict, so behavior is unchanged when unset."
+...
