@@ -978,3 +978,17 @@ releases:
     fragments:
     - filetree_create_survey_choices_string_export.yml
     release_date: '2026-09-15'
+  3.4.3:
+    changes:
+      bugfixes:
+      - filetree_create - coerce boolean-looking survey defaults and choices (``true``/``false``/``yes``/``no``)
+        to strings; ``!unsafe`` scalars are loaded as booleans by Ansible and the
+        API rejects them
+      - filetree_create - export survey ``choices`` as a ``!!str`` JSON string so
+        multiplechoice/multiselect options round-trip as separate choices
+      - filetree_create - fix invalid YAML syntax when exporting workflow node verbosity
+        fallback (``verbosity =`` instead of ``verbosity:``)
+    fragments:
+    - filetree_create_survey_choices_newline_escape.yml
+    - filetree_create_workflow_verbosity_yaml_syntax.yml
+    release_date: '2026-10-01'
