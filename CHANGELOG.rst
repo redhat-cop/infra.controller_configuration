@@ -4,6 +4,16 @@ infra.controller\_configuration Release Notes
 
 .. contents:: Topics
 
+v3.4.3
+======
+
+Bugfixes
+--------
+
+- filetree_create - coerce boolean-looking survey defaults and choices (``true``/``false``/``yes``/``no``) to strings; ``!unsafe`` scalars are loaded as booleans by Ansible and the API rejects them
+- filetree_create - export survey ``choices`` as a ``!!str`` JSON string so multiplechoice/multiselect options round-trip as separate choices
+- filetree_create - fix invalid YAML syntax when exporting workflow node verbosity fallback (``verbosity =`` instead of ``verbosity:``)
+
 v3.4.2
 ======
 
