@@ -1,0 +1,20 @@
+---
+- name: "object_diff rejects {{ object_diff_conflicting_params }}"
+  block:
+    - name: "Run the object_diff query parameter check with {{ object_diff_conflicting_params }}"
+      ansible.builtin.include_role:
+        name: object_diff
+        tasks_from: query_params.yml
+      vars:
+        controller_configuration_object_diff_query_params: "{{ object_diff_conflicting_params }}"
+
+    - name: Fail because the conflicting parameters were accepted
+      ansible.builtin.fail:
+        msg: "{{ object_diff_conflicting_params }} was accepted, so it could widen what object_diff fetches"
+  rescue:
+    - name: Assert the check rejected the parameters, not something else
+      ansible.builtin.assert:
+        that:
+          - ansible_failed_task.name is search('Reject extra query parameters')
+          - ansible_failed_result.msg is search('can only narrow')
+...

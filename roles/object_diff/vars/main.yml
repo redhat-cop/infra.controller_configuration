@@ -1,3 +1,11 @@
 ---
 # vars file for object_diff
+
+# Query parameters the tasks set themselves to scope what they fetch. controller_configuration_object_diff_query_params
+# may not use them (bare, with or__/not__/chain__, or with a __ lookup), so extras can only narrow that scope.
+__controller_configuration_object_diff_reserved_query_params:
+  - organization
+  - inventory
+  - managed
+  - managed_by_tower
 ...
