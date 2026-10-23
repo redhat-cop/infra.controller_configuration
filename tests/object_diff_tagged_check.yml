@@ -1,0 +1,15 @@
+---
+# Run by configure_controller.yml with --tags projects: object_diff's scope check must still run, and stop the role before
+# the projects fetch, when only some of its tasks are selected. Fails before any controller call, so no credentials needed.
+- name: Object diff scope check under --tags
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - infra.controller_configuration
+  vars:
+    controller_configuration_object_diff_query_params:
+      organization: 999
+  roles:
+    - object_diff
+...
