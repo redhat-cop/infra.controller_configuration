@@ -55,6 +55,15 @@
           ansible.builtin.debug:
             msg: "Using the 'controller_role' plugin from: {{ controller_role_plugin }}"
 
+- name: Check the extra query parameters cannot widen the diff
+  ansible.builtin.include_tasks:
+    file: query_params.yml
+    apply:
+      tags:
+        - always
+  tags:
+    - always
+
 - name: Check if the connection is to an Ansible Tower or to Automation Platform # noqa jinja[invalid]
   ansible.builtin.set_fact:
     is_aap: "{{ lookup(controller_api_plugin, 'ping', host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs).version is
