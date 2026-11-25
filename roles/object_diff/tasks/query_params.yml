@@ -1,0 +1,15 @@
+---
+- name: query_params | Reject extra query parameters that would replace the scope the role sets
+  ansible.builtin.assert:
+    that:
+      - __object_diff_query_params_conflicts | length == 0
+    fail_msg: >-
+      controller_configuration_object_diff_query_params can only narrow what each task fetches, so it cannot set
+      the parameters the role uses for scope ({{ __controller_configuration_object_diff_reserved_query_params | join(', ') }},
+      including or__/not__/chain__ forms and __ lookups). Remove: {{ __object_diff_query_params_conflicts | join(', ') }}.
+    quiet: true
+  vars:
+    __object_diff_query_params_reserved_pattern: "^((or|not|chain)__)*({{ __controller_configuration_object_diff_reserved_query_params | join('|') }})(__|$)"
+    __object_diff_query_params_conflicts: "{{ controller_configuration_object_diff_query_params.keys() | select('match', __object_diff_query_params_reserved_pattern)
+      | list }}"
+...

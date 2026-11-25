@@ -86,6 +86,46 @@
 
   tasks:
 
+    - name: Validate that object_diff extra query parameters can only narrow its scope
+      block:
+        - name: Accept extra query parameters that narrow the diff
+          ansible.builtin.include_role:
+            name: object_diff
+            tasks_from: query_params.yml
+          vars:
+            controller_configuration_object_diff_query_params:
+              labels__name: casc-managed
+              name__startswith: Demo
+
+        - name: Reject extra query parameters that would replace the role's scope
+          ansible.builtin.include_tasks: tasks/object_diff_query_params_conflict.yml
+          loop:
+            - {organization: 999}
+            - {inventory: 999}
+            - {managed: true}
+            - {managed_by_tower: true}
+            - {or__organization: 999}
+            - {not__inventory: 999}
+            - {organization__in: '1,999'}
+            - {chain__or__inventory__name: Other}
+            - {labels__name: casc-managed, organization: 999}
+          loop_control:
+            loop_var: object_diff_conflicting_params
+
+        - name: Run object_diff with only its projects tasks selected and a conflicting parameter
+          ansible.builtin.command: ansible-playbook {{ playbook_dir }}/object_diff_tagged_check.yml --tags projects
+          register: object_diff_tagged_run
+          changed_when: false
+          failed_when: false
+
+        - name: Assert the scope check ran under --tags and stopped the role before the projects fetch
+          ansible.builtin.assert:
+            that:
+              - object_diff_tagged_run.rc != 0
+              - object_diff_tagged_run.stdout is search('can only narrow')
+              - object_diff_tagged_run.stdout is not search('projects [|] Get the API list')
+            fail_msg: "{{ object_diff_tagged_run.stdout_lines[-25:] }}"
+
     - name: Validate error handling
       block:
         - name: Add Invalid Job Templates to Controller
@@ -187,4 +227,75 @@
         controller_host:         "{{ controller_hostname }}"
         validate_certs:          "{{ controller_validate_certs }}"
       ignore_errors: true  # noqa ignore-errors
+
+    - name: Validate that object_diff fetches stay in the role's organization whatever the extra query parameters say
+      vars:
+        controller_role_plugin: infra.controller_configuration.controller_object_diff
+        controller_configuration_object_diff_secure_logging: false
+        orgs: Default
+      block:
+        - name: Get a token for the object_diff fetches
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: object_diff_token
+
+        - name: Look up the organizations the test data creates
+          ansible.builtin.set_fact:
+            object_diff_default_org: "{{ lookup(controller_api_plugin, 'organizations', query_params={'name': 'Default'}, host=controller_hostname,
+              oauth_token=object_diff_token.json.token, verify_ssl=controller_validate_certs) }}"
+            object_diff_other_org: "{{ lookup(controller_api_plugin, 'organizations', query_params={'name': 'Satellite'}, host=controller_hostname,
+              oauth_token=object_diff_token.json.token, verify_ssl=controller_validate_certs) }}"
+
+        # The task files run directly, past the scope check, so only the merge order keeps the fetch in Default.
+        - name: Fetch projects with extras that try to move the diff to another organization
+          ansible.builtin.include_role:
+            name: object_diff
+            tasks_from: projects.yml
+          vars:
+            controller_oauthtoken: "{{ object_diff_token.json.token }}"
+            controller_projects: []
+            controller_configuration_object_diff_query_params:
+              organization: "{{ object_diff_other_org.id }}"
+
+        - name: Assert only projects of the role's organization were fetched
+          ansible.builtin.assert:
+            that:
+              - __controller_api_projects | length > 0
+              - __controller_api_projects | map(attribute='organization') | unique == [object_diff_default_org.id]
+              - "'Test Inventory source project' not in (__controller_api_projects | map(attribute='name'))"
+
+        - name: Fetch job templates narrowed by label, with extras that also try to move the diff to another organization
+          ansible.builtin.include_role:
+            name: object_diff
+            tasks_from: job_templates.yml
+          vars:
+            controller_oauthtoken: "{{ object_diff_token.json.token }}"
+            controller_templates: []
+            controller_configuration_object_diff_query_params:
+              labels__name: Prod
+              organization: "{{ object_diff_other_org.id }}"
+
+        - name: Assert the label narrowed the job templates and the organization did not change
+          ansible.builtin.assert:
+            that:
+              - "'test-template-1' in (__controller_api_job_templates | map(attribute='name'))"
+              - "'Demo Job Template' not in (__controller_api_job_templates | map(attribute='name'))"
+              - __controller_api_job_templates | map(attribute='organization') | unique == [object_diff_default_org.id]
+      always:
+        - name: Delete the object_diff token
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}{{ object_diff_token.json.url }}"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: DELETE
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 204
+          when: object_diff_token.json is defined
 ...
